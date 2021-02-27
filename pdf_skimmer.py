@@ -10,7 +10,7 @@ element = {"name": "", 'match': False, "lines": [], 'error': False }
 
 #Directory Handling
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-Source_DIR = f'{ROOT_DIR}\\Summer 2021 Applicants\\'
+Source_DIR = f'{ROOT_DIR}\\pdfs_toscan\\'
 Match_Destination_DIR = f'{ROOT_DIR}\\match\\'
 NoMatch_Destination_DIR = f'{ROOT_DIR}\\no_match\\'
 Error_Destination_DIR = f'{ROOT_DIR}\\errors\\'
@@ -18,12 +18,12 @@ Error_Destination_DIR = f'{ROOT_DIR}\\errors\\'
 # define keyterms
 keyWords = ["C\+\+" ,"python" ,"ROS", "web", "javascript", "react" ,"angular", "unity", "js"]
 
-file_list = glob.glob(f"{ROOT_DIR}\Summer 2021 Applicants\*.pdf")
+file_list = glob.glob(f"{Source_DIR}\*.pdf")
 
 Enable_Sort = input('Sort Pdfs to folder? (y/n)')
 
 for file in file_list:
-    
+    file_name = file.split("\\")
     element['name'] = None
     element['lines'] = []
     error = False
@@ -64,12 +64,19 @@ for file in file_list:
     print(element)
 
     if(Enable_Sort == "y"):
+        if not os.path.exists(Error_Destination_DIR):
+            os.makedirs(Error_Destination_DIR)
+        if not os.path.exists(Match_Destination_DIR):
+            os.makedirs(Match_Destination_DIR)
+        if not os.path.exists(NoMatch_Destination_DIR):
+            os.makedirs(NoMatch_Destination_DIR)
+
         if (error):
-            os.replace(f'{Source_DIR}{file}', f'{Error_Destination_DIR}{file}')
+            os.replace(file, f'{Error_Destination_DIR}{file_name[-1]}')
         elif(match):
-            os.replace(f'{Source_DIR}{file}', f'{Match_Destination_DIR}{file}')
+            os.replace(file, f'{Match_Destination_DIR}{file_name[-1]}')
         else:
-            os.replace(f'{Source_DIR}{file}', f'{NoMatch_Destination_DIR}{file}')
+            os.replace(file, f'{NoMatch_Destination_DIR}{file_name[-1]}')
 
     # Open your CSV file in append mode 
     # Create a file object for this file 
