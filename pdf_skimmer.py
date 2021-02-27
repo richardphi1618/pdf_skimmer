@@ -17,12 +17,12 @@ Error_Destination_DIR = f'{ROOT_DIR}\\errors\\'
 
 # define keyterms
 keyWords = ["C\+\+" ,"python" ,"ROS", "web", "javascript", "react" ,"angular", "unity", "js"]
-
 file_list = glob.glob(f"{Source_DIR}\*.pdf")
 
 Enable_Sort = input('Sort Pdfs to folder? (y/n)')
 
 for file in file_list:
+    #reset working vars
     file_name = file.split("\\")
     element['name'] = None
     element['lines'] = []
